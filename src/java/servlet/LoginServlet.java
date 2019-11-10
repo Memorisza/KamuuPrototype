@@ -43,7 +43,6 @@ public class LoginServlet extends HttpServlet {
         }
         UserController uc = new UserController();
         KamuuUser ku = uc.findByUsername(user);
-        System.out.println(ku);
         if(ku == null){
             msg = "User not found";
             request.setAttribute("message", msg);
