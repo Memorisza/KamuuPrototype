@@ -16,7 +16,7 @@
         <form action="Login" method="post">
             <label>Username:<input class="form-control" type="text" name="user"/></label><br>
             <label>Password:<input class="form-control" type="password" name="pass"/></label><br>
-            <input class="btn btn-success" type="submit" value="Login"/> 
+            <input class="btn btn-success" type="submit" value="Login"/>
         </form>
         <button type="button" class="btn btn-primary" onclick="location.href = 'Register';">Register</button>
     </body>
