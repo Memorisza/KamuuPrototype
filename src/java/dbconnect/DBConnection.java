@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author tisanai
+ * @author Win 10
  */
 public class DBConnection {
 
