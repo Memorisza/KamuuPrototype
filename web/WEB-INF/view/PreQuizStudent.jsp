@@ -14,9 +14,13 @@
     <body>
         <h1>Subject A</h1>
         <h2>Quiz 3</h2>
-        วิธีทำข้อสอบ<br>
-        1. เปิด<br>
-        2. ปิด!!<br><br>
-        <input type="submit" value="OK"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Cancel">
+        <h3>วิธีทำข้อสอบ</h3><br>
+        asdfjkl;asdfjk;asdfkads;lkjsdfkj<br><br>
+        <form action="Quiz" method="get">
+            <input type="submit" value="OK"><br>
+        </form>
+        <form action="Login" method="get">
+            <input type="submit" value="Cancel">
+        </form>
     </body>
 </html>
