@@ -25,24 +25,24 @@ public class UserController {
     private final String FIND_BY_NAME = "SELECT * FROM KAMUUUSER WHERE NAME LIKE '?%'";
     private final String FIND_BY_SURNAME = "SELECT * FROM KAMUUUSER WHERE SURNAME LIKE '?%'";
     private final String ADD_NEWUSER = "INSERT INTO KAMUUUSER (USER_ID,NAME,SURNAME,USERNAME,PASSWORD,ROLE)"
-            + "VALUES (\'?\',\'?\',\'?\',\'?\',\'?\',\'?\')";
+            + "VALUES (?,?,?,?,?,?)";
     private final String FIND_LASTUSERID = "SELECT MAX(USER_ID) FROM KAMUUUSER";
     
-    public KamuuUser findLastRegisUser(){
-        KamuuUser u = null;
+    public int findLastIndexUser(){
+        int i = -1;
         Connection conn = DBConnection.getConnection();
         try{
             PreparedStatement pstm = conn.prepareStatement(FIND_LASTUSERID);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
-                u = new KamuuUser(rs.getInt("USER_ID"),rs.getString("NAME"),rs.getString("SURNAME"),rs.getString("USERNAME"),rs.getString("PASSWORD"),rs.getString("ROLE"));
+                i = rs.getInt("1");
             }
             conn.close();
         }
         catch(SQLException e){
             System.out.println("Error Occured");
         }
-        return u;
+        return i;
     }
     
     public KamuuUser findById(int id){
@@ -82,7 +82,7 @@ public class UserController {
     }
     
     public ArrayList<KamuuUser> findByName(String name){
-        ArrayList<KamuuUser> ary = null;
+        ArrayList<KamuuUser> ary = new ArrayList();
         Connection conn = DBConnection.getConnection();
         try{
             PreparedStatement pstm = conn.prepareStatement(FIND_BY_NAME);
@@ -121,22 +121,20 @@ public class UserController {
         Connection conn = DBConnection.getConnection();
         try{
             PreparedStatement pstm = conn.prepareStatement(ADD_NEWUSER);
-            KamuuUser last = findLastRegisUser();
-            pstm.setInt(1, last.getId()+1);
+            int last = findLastIndexUser();
+            System.out.println(last);
+            pstm.setInt(1, last+1);
             pstm.setString(2, ku.getName());
             pstm.setString(3, ku.getSurname());
             pstm.setString(4, ku.getUsername());
             pstm.setString(5, ku.getPassword());
             pstm.setString(6, ku.getRole());
-            ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                conn.close();
-                return true;
-            }
+            int rs = pstm.executeUpdate();
             conn.close();
+            return true;
         }
         catch(SQLException e){
-            System.out.println("Error Occured");
+            e.printStackTrace();
         }
         return false;
     }

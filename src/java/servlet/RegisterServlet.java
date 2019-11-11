@@ -5,12 +5,16 @@
  */
 package servlet;
 
+import controller.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.KamuuUser;
 
 /**
  *
@@ -30,18 +34,25 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String uname = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        String role = request.getParameter("role");
+        
+        if(fname.isEmpty() || lname.isEmpty() || uname.isEmpty() || pass.isEmpty() || role.isEmpty()){
+            request.setAttribute("message", "Incorrect format");
+            getServletContext().getRequestDispatcher("/WEB-INF/view/Register.jsp").forward(request, response);
         }
+        UserController uc = new UserController();
+        if(uc.findByUsername(uname) != null){
+            request.setAttribute("message", "Username has been used");
+            getServletContext().getRequestDispatcher("/WEB-INF/view/Register.jsp").forward(request, response);
+        }
+        KamuuUser newKu = new KamuuUser(0, fname, lname, uname, pass, role);
+        uc.addNewUser(newKu);
+        request.setAttribute("message", "Registered Successfully");
+        getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +67,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/view/Register.jsp").forward(request, response);
     }
 
     /**
