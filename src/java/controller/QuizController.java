@@ -22,8 +22,8 @@ import model.Quiz;
 public class QuizController {
     private final String FIND_BY_ID = "SELECT * FROM QUIZ WHERE QUIZ_ID = ?";
     private final String FIND_BY_QNAME = "SELECT * FROM QUIZ WHERE QUIZ_NAME LIKE '?%'";
-    private final String FIND_ACTIVEQUIZ = "SELECT * FROM QUIZ WHERE IS_ACTIVE = 1";
-    private final String FIND_INACTIVEQUIZ = "SELECT * FROM QUIZ WHERE IS_ACTIVE = 0";
+    private final String FIND_ACTIVEQUIZ = "SELECT * FROM QUIZ WHERE IS_ACTIVE = '1'";
+    private final String FIND_INACTIVEQUIZ = "SELECT * FROM QUIZ WHERE IS_ACTIVE = '0'";
     private final String FIND_BY_TID = "SELECT * FROM QUIZ WHERE TEACHER_ID = ?";
     
     public Quiz findById(int id){

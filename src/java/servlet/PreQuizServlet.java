@@ -6,23 +6,19 @@
 package servlet;
 
 import controller.QuizController;
-import controller.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.KamuuUser;
 import model.Quiz;
 
 /**
  *
  * @author Win 10
  */
-public class LoginServlet extends HttpServlet {
+public class PreQuizServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,34 +32,11 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("user");
-        String password = request.getParameter("pass");
-        String msg;
-        if(user.isEmpty() || password.isEmpty()){
-            msg = "Incorrect format";
-            request.setAttribute("message", msg);
-            getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
-        }
-        UserController uc = new UserController();
-        KamuuUser ku = uc.findByUsername(user);
-        if(ku == null){
-            msg = "User not found";
-            request.setAttribute("message", msg);
-            getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
-        }
-        System.out.println(ku.getPassword());
-        System.out.println(password);
-        if(!ku.getPassword().equals(password)){
-            msg = "Wrong Password";
-            request.setAttribute("message", msg);
-            getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
-        }
-        HttpSession session = request.getSession();
-        session.setAttribute("user", ku);
+        int quizId = Integer.parseInt(request.getParameter("quizid"));
         QuizController qc = new QuizController();
-        ArrayList<Quiz> ary = qc.findActiveQuiz();
-        request.setAttribute("quizes", ary);
-        getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
+        Quiz q = qc.findById(quizId);
+        request.setAttribute("quiz", q);
+        getServletContext().getRequestDispatcher("/WEB-INF/view/PreQuiz.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -78,18 +51,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if(session == null){
-            getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
-        }
-        KamuuUser ku = (KamuuUser)session.getAttribute("user");
-        if(ku == null){
-            getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
-        }
-        QuizController qc = new QuizController();
-        ArrayList<Quiz> ary = qc.findActiveQuiz();
-        request.setAttribute("quizes", ary);
-        getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -29,12 +29,12 @@
         <servlet-class>servlet.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>servlet.HomeServlet</servlet-class>
+        <servlet-name>QuizServlet</servlet-name>
+        <servlet-class>servlet.QuizServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PreQuizStudentServlet</servlet-name>
-        <servlet-class>servlet.PreQuizStudentServlet</servlet-class>
+        <servlet-name>PreQuizServlet</servlet-name>
+        <servlet-class>servlet.PreQuizServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -49,12 +49,12 @@
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/Home</url-pattern>
+        <servlet-name>QuizServlet</servlet-name>
+        <url-pattern>/Quiz</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PreQuizStudentServlet</servlet-name>
-        <url-pattern>/PreQuizStudent</url-pattern>
+        <servlet-name>PreQuizServlet</servlet-name>
+        <url-pattern>/PreQuiz</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
