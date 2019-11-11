@@ -44,6 +44,5 @@
             </nav>
         </c:forEach>
         </table>
-        
     </body>
 </html>

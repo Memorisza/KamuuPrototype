@@ -26,8 +26,6 @@ public class KamuuUser {
         this.role = role;
     }
     
-    
-    
     public int getId() {
         return id;
     }

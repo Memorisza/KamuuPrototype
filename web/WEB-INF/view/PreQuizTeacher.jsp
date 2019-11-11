@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Quiz
-    Created on : Nov 10, 2019, 3:22:22 PM
+    Document   : PreQuizTeacher
+    Created on : Nov 10, 2019, 3:36:29 PM
     Author     : JALALER
 --%>
 
@@ -14,8 +14,6 @@
     <body>
         <h1>Subject A</h1>
         <h2>Quiz 3</h2>
-        ----------------------------------<br>
-        
-        <input type="submit" value="Submit">
+        <input type="submit" value="Students Score">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Edit Question">
     </body>
 </html>
