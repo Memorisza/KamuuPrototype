@@ -12,5 +12,24 @@
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <h1>Kamuu</h1>
         <h2>Welcome ${user.getFullname()}</h2>
+        <input type="search">&nbsp;Search<br>
+        <table>
+            <tr>
+                <th>Subject A</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Quiz 1</td>
+                <td><input type="submit" value="Click to do the Quiz"></td>
+            </tr>
+            <tr>
+                <td>Quiz 2</td>
+                <td><input type="submit" value="Click to do the Quiz"></td>
+            </tr>
+            <tr>
+                <td>Quiz 3</td>
+                <td><input type="submit" value="Click to do the Quiz"></td>
+            </tr>
+        </table>
     </body>
 </html>
