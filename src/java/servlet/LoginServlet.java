@@ -5,15 +5,18 @@
  */
 package servlet;
 
+import controller.QuizController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.KamuuUser;
+import model.Quiz;
 
 /**
  *
@@ -57,6 +60,9 @@ public class LoginServlet extends HttpServlet {
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", ku);
+        QuizController qc = new QuizController();
+        ArrayList<Quiz> ary = qc.findActiveQuiz();
+        request.setAttribute("quizes", ary);
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
     }
 
@@ -80,6 +86,9 @@ public class LoginServlet extends HttpServlet {
         if(ku == null){
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
+        QuizController qc = new QuizController();
+        ArrayList<Quiz> ary = qc.findActiveQuiz();
+        request.setAttribute("quizes", ary);
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
     }
 
