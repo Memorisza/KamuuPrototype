@@ -57,21 +57,21 @@ public class QuestionController {
         return ary;
     }
     
-    public Question findByQuizId(int id){
-        Question q = null;
+    public ArrayList<Question> findByQuizId(int id){
+        ArrayList<Question> ary = new ArrayList<>();
         Connection conn = DBConnection.getConnection();
         try{
             PreparedStatement pstm = conn.prepareStatement(FIND_BY_QUIZID);
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
-                q = new Question(rs.getInt("QUESTION_ID"), rs.getString("QUESTION_TITLE"), rs.getInt("QUIZ_ID"));
+                ary.add(new Question(rs.getInt("QUESTION_ID"), rs.getString("QUESTION_TITLE"), rs.getInt("QUIZ_ID")));
             }
             conn.close();
         }
         catch(SQLException ex){
             ex.printStackTrace();
         }
-        return q;
+        return ary;
     }
 }
