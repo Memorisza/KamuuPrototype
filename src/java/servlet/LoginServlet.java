@@ -59,6 +59,7 @@ public class LoginServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(900);
         session.setAttribute("user", ku);
         QuizController qc = new QuizController();
         ArrayList<Quiz> ary = qc.findActiveQuiz();
