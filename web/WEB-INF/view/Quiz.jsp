@@ -27,10 +27,10 @@
                 <nav aria-label="breadcrumb">
                     <div class="row">
                         <div class="col-lg-2">
-
+                                
                         </div>
                         <div class="col-lg-8">
-                            <h1>${quiz.key.getQuestionTitle()}</h1><br>
+                            <h1>${vs.count}. ${quiz.key.getQuestionTitle()}</h1><br>
                         </div>
                     </div>
                 <c:forEach items="${quiz.value}" var='choice' varStatus="vs2">
