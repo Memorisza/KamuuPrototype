@@ -39,7 +39,7 @@
 
                         </div>
                         <div class="col-lg-8 form-check">
-                            <label><input class="form-check-input" type="checkbox"/><h2>${choice.getChoiceAns()}</h2><br></label>
+                            <label><input class="form-check-input" type="checkbox"/><h4>${choice.getChoiceAns()}</h4><br></label>
                         </div>
                     </div>                
                 </c:forEach>
