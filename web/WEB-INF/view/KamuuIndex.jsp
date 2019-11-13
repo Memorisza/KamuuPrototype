@@ -12,7 +12,9 @@
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <div class="jumbotron">
-            <center><h1 class="display-4">Kamuu</h1></center>
+            <center><h1 class="display-4">
+                    <c:if test="${message == null}">Kamuu!</c:if>${message}
+                </h1></center>
         </div>
         <div class="row">
             <div class="col-lg-2">

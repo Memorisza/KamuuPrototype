@@ -37,6 +37,10 @@ public class UserController {
             if(rs.next()){
                 i = rs.getInt("1");
             }
+            else {
+                conn.close();
+                return 0;
+            }
             conn.close();
         }
         catch(SQLException e){

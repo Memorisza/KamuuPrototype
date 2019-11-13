@@ -27,23 +27,30 @@
                 <nav aria-label="breadcrumb">
                     <div class="row">
                         <div class="col-lg-2">
-                                
                         </div>
                         <div class="col-lg-8">
                             <h1>${vs.count}. ${quiz.key.getQuestionTitle()}</h1><br>
                         </div>
                     </div>
+                </nav>
                 <c:forEach items="${quiz.value}" var='choice' varStatus="vs2">
                     <div class="row">
                         <div class="col-lg-2">
-
                         </div>
-                        <div class="col-lg-8 form-check">
-                            <label><input class="form-check-input" type="checkbox"/><h4>${choice.getChoiceAns()}</h4><br></label>
+                        <div class="col-lg-8">
+                            <!--<h1>${choice.getChoiceId()}</h1>-->
+                            <label><input class="form-check-input" name="question_${vs.count}" type="radio" value="${choice.getChoiceId()}"/><h4>${choice.getChoiceAns()}</h4></label><br>
                         </div>
-                    </div>                
+                    </div>
                 </c:forEach>
             </c:forEach>
+                <div class="row">
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-8">
+                        <input class="btn btn-primary" type="submit" value="Submit"/>
+                    </div>
+                </div>
             </form>
     </body>
 </html>

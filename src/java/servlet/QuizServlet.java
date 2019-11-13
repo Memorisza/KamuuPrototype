@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import controller.AnswerController;
 import controller.ChoiceController;
 import controller.QuestionController;
 import controller.QuizController;
@@ -16,7 +17,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Answer;
 import model.Choice;
+import model.KamuuUser;
 import model.Question;
 import model.Quiz;
 
@@ -38,7 +42,33 @@ public class QuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        getServletContext().getRequestDispatcher("/WEB-INF/iew/Quiz.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        KamuuUser ku = (KamuuUser)session.getAttribute("user");
+        HashMap<Question,ArrayList<Choice>> hm = (HashMap<Question,ArrayList<Choice>>)session.getAttribute("quizes");
+        ArrayList<Choice> cary = new ArrayList<>();
+        ArrayList<Integer> iary = new ArrayList<>();
+        for(int i = 1;i<=hm.size();i++){
+            String sc = "question_"+i;
+            System.out.println(sc);
+            System.out.println(request.getParameter(sc));
+            int ic = Integer.parseInt(request.getParameter(sc));
+            iary.add(ic);
+        }
+        for(ArrayList<Choice> nary : hm.values()){
+            for(Choice c : nary){
+                for(int i : iary){
+                    if(c.getChoiceId() == i){
+                        QuestionController qc = new QuestionController();
+                        AnswerController ac = new AnswerController();
+                        Answer a = new Answer(0,ku.getId(), qc.findById(c.getQuestionId()).getQuizId(), c.getQuestionId() , c.getChoiceId(), c.isIsRightChoice());
+                        ac.ADD_ANSWER(a);
+                    }
+                }
+            }
+        }
+        request.setAttribute("message", "Quiz submitted.");
+        response.sendRedirect("/KamuuPrototype/Login");
+     //Fighting Atis!!   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,7 +92,8 @@ public class QuizServlet extends HttpServlet {
             hm.put(q, cc.findByQuestionId(q.getQuestionId()));
         }        
         System.out.println(hm.size());
-        request.setAttribute("quizes", hm);
+        HttpSession session = request.getSession(false);
+        session.setAttribute("quizes", hm);
         getServletContext().getRequestDispatcher("/WEB-INF/view/Quiz.jsp").forward(request, response);
     }
 
