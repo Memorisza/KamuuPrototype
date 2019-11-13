@@ -5,13 +5,19 @@
  */
 package servlet;
 
+import controller.ChoiceController;
+import controller.QuestionController;
 import controller.QuizController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Choice;
+import model.Question;
 import model.Quiz;
 
 /**
@@ -32,11 +38,7 @@ public class QuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int quizId = Integer.parseInt(request.getParameter("quizid"));
-        QuizController qc = new QuizController();
-        Quiz q = qc.findById(quizId);
-        request.setAttribute("quiz", q);
-        getServletContext().getRequestDispatcher("/WEB-INF/view/PreQuiz.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/iew/Quiz.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +53,17 @@ public class QuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int quizId = Integer.parseInt(request.getParameter("quizid"));
+        QuestionController qc = new QuestionController();
+        ChoiceController cc = new ChoiceController();
+        ArrayList<Question> ary = qc.findByQuizId(quizId);
+        HashMap<Question,ArrayList<Choice>> hm = new HashMap();
+        for(Question q : ary){
+            hm.put(q, cc.findByQuestionId(q.getQuestionId()));
+        }        
+        System.out.println(hm.size());
+        request.setAttribute("quizes", hm);
+        getServletContext().getRequestDispatcher("/WEB-INF/view/Quiz.jsp").forward(request, response);
     }
 
     /**

@@ -64,7 +64,7 @@ public class QuestionController {
             PreparedStatement pstm = conn.prepareStatement(FIND_BY_QUIZID);
             pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 ary.add(new Question(rs.getInt("QUESTION_ID"), rs.getString("QUESTION_TITLE"), rs.getInt("QUIZ_ID")));
             }
             conn.close();
