@@ -24,6 +24,30 @@
             </div>
         </div>
         <hr>
+        <h2>Completed Quizzes</h2>
+        <c:forEach items='${donequizes}' var='uquiz' varStatus="vs">
+            <nav aria-label="breadcrumb">
+                <div class="row">
+                    <div class="col-lg-2">
+                        
+                    </div>
+                    <div class="col-lg-1">
+                        ${vs.count}
+                    </div>
+                    <div class="col-lg-4">
+                        ${uquiz.getQuizName()}
+                    </div>
+                    <div class="col-lg-2">
+                        
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-link" onclick="location.href = 'Quiz?quizid=${uquiz.getQuizId()}'">Do the Quiz!</button>
+                    </div>
+                </div>
+            </nav>
+        </c:forEach>
+        <hr>
+        <h2>Available Quizzes</h2>
         <c:forEach items='${quizes}' var='quiz' varStatus="vs">
             <nav aria-label="breadcrumb">
                 <div class="row">

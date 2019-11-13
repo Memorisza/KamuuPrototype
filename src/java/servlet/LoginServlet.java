@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import controller.AnswerController;
 import controller.QuizController;
 import controller.UserController;
 import java.io.IOException;
@@ -62,7 +63,14 @@ public class LoginServlet extends HttpServlet {
         session.setMaxInactiveInterval(900);
         session.setAttribute("user", ku);
         QuizController qc = new QuizController();
+        AnswerController ac = new AnswerController();
+        ArrayList<Quiz> uary = new ArrayList<>();
+        ArrayList<Integer> iary = ac.findQuizByUser(ku);
+        for(int i : iary){
+            uary.add(qc.findById(i));
+        }
         ArrayList<Quiz> ary = qc.findActiveQuiz();
+        request.setAttribute("donequizes", uary);
         request.setAttribute("quizes", ary);
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
     }
@@ -88,7 +96,14 @@ public class LoginServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
         QuizController qc = new QuizController();
+        AnswerController ac = new AnswerController();
+        ArrayList<Quiz> uary = new ArrayList<>();
+        ArrayList<Integer> iary = ac.findQuizByUser(ku);
+        for(int i : iary){
+            uary.add(qc.findById(i));
+        }
         ArrayList<Quiz> ary = qc.findActiveQuiz();
+        request.setAttribute("donequizes", uary);
         request.setAttribute("quizes", ary);
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
     }

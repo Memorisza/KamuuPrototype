@@ -10,8 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Answer;
 import model.KamuuUser;
+import model.Quiz;
 
 /**
  *
@@ -22,6 +24,7 @@ public class AnswerController {
             + "VALUES (?,?,?,?,?,?)";
     private final String FIND_BY_USER = "SELECT * FROM USER_ANSWER WHERE USER_ID = ?";
     private final String FIND_LASTTRANSID = "SELECT MAX(TRANS_ID) FROM USER_ANSWER";
+    private final String FIND_QUIZBYUSER = "SELECT DISTINCT QUIZ_ID FROM USER_ANSWER WHERE USER_ID = ?"; 
     
      public int findLastTransID(){
         int i = -1;
@@ -63,21 +66,40 @@ public class AnswerController {
         return true;
     }
     
-    public Answer findByUser(KamuuUser ku){
-        Answer a = null;
+    public ArrayList<Answer> findByUser(KamuuUser ku){
+        ArrayList<Answer> ary = new ArrayList<>();
         Connection conn = DBConnection.getConnection();
         try{
             PreparedStatement pstm = conn.prepareStatement(FIND_BY_USER);
             pstm.setInt(1, ku.getId());
             ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                a = new Answer(rs.getInt("TRANS_ID"),rs.getInt("USER_ID"), rs.getInt("QUIZ_ID"), rs.getInt("QUESTION_ID"), rs.getInt("CHOICE_ID"), rs.getBoolean("IS_RIGHT"));
+            while(rs.next()){
+                ary.add(new Answer(rs.getInt("TRANS_ID"),rs.getInt("USER_ID"), rs.getInt("QUIZ_ID"), rs.getInt("QUESTION_ID"), rs.getInt("CHOICE_ID"), rs.getBoolean("IS_RIGHT")));
             }
             conn.close();
         }
         catch(SQLException ex){
             ex.printStackTrace();
         }
-        return a;
+        return ary;
+    }
+    
+    public ArrayList<Integer> findQuizByUser(KamuuUser ku){
+        ArrayList<Integer> ary = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(FIND_QUIZBYUSER);
+            pstm.setInt(1, ku.getId());
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                ary.add(rs.getInt("QUIZ_ID"));
+            }
+            conn.close();
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return ary;
+        //Fighting Atissssssss!!!!!!!!!
     }
 }
