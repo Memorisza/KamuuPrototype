@@ -38,7 +38,7 @@
                         
                     </div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-link" onclick="location.href = 'PreQuiz?=$quizid=${quiz.getQuizId()}'">Do the Quiz!</button>
+                        <button type="button" class="btn btn-link" onclick="location.href = 'Quiz?quizid=${quiz.getQuizId()}'">Do the Quiz!</button>
                     </div>
                 </div>
             </nav>
