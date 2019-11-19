@@ -11,9 +11,7 @@
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Kamuu!"/>
     <body>
     <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
-        <div class="jumbotron">
-            <center><h1 class="display-4">Kamuu</h1></center>
-        </div>
+        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <div class="row">
             <div class="col-lg-2">
             </div>

@@ -25,6 +25,7 @@ public class AnswerController {
     private final String FIND_BY_USER = "SELECT * FROM USER_ANSWER WHERE USER_ID = ?";
     private final String FIND_LASTTRANSID = "SELECT MAX(TRANS_ID) FROM USER_ANSWER";
     private final String FIND_QUIZBYUSER = "SELECT DISTINCT QUIZ_ID FROM USER_ANSWER WHERE USER_ID = ?"; 
+    private final String FIND_BY_USERNQUIZ = "SELECT * FROM USER_ANSWER WHERE USER_ID = ? AND QUIZ_ID = ?";
     
      public int findLastTransID(){
         int i = -1;
@@ -64,6 +65,24 @@ public class AnswerController {
             ex.printStackTrace();
         }
         return true;
+    }
+    
+    public ArrayList<Answer> findByUserNQuiz(KamuuUser ku, int quizId){
+        ArrayList<Answer> ary = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(FIND_BY_USERNQUIZ);
+            pstm.setInt(1, ku.getId());
+            pstm.setInt(2, quizId);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                ary.add(new Answer(rs.getInt("TRANS_ID"),rs.getInt("USER_ID"), rs.getInt("QUIZ_ID"), rs.getInt("QUESTION_ID"), rs.getInt("CHOICE_ID"), rs.getBoolean("IS_RIGHT")));
+            }
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return ary;
     }
     
     public ArrayList<Answer> findByUser(KamuuUser ku){

@@ -11,6 +11,7 @@ import controller.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,8 +53,8 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("message", msg);
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
-        System.out.println(ku.getPassword());
-        System.out.println(password);
+//        System.out.println(ku.getPassword());
+//        System.out.println(password);
         if(!ku.getPassword().equals(password)){
             msg = "Wrong Password";
             request.setAttribute("message", msg);
@@ -70,6 +71,13 @@ public class LoginServlet extends HttpServlet {
             uary.add(qc.findById(i));
         }
         ArrayList<Quiz> ary = qc.findActiveQuiz();
+        for(int i = 0 ; i < uary.size(); i++){
+            Comparator<Quiz> c = quizComparator();
+            if(c.compare(uary.get(i), ary.get(i)) == 0){
+                ary.remove(i);
+            }
+        }
+        ary.trimToSize();
         request.setAttribute("donequizes", uary);
         request.setAttribute("quizes", ary);
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
@@ -103,6 +111,13 @@ public class LoginServlet extends HttpServlet {
             uary.add(qc.findById(i));
         }
         ArrayList<Quiz> ary = qc.findActiveQuiz();
+        for(int i = 0 ; i < uary.size(); i++){
+            Comparator<Quiz> c = quizComparator();
+            if(c.compare(uary.get(i), ary.get(i)) == 0){
+                ary.remove(i);
+            }
+        }
+        ary.trimToSize();
         request.setAttribute("donequizes", uary);
         request.setAttribute("quizes", ary);
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
@@ -132,4 +147,9 @@ public class LoginServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Comparator<Quiz> quizComparator(){
+        return (o1, o2) -> {
+            return o1.getQuizId()-o2.getQuizId(); //To change body of generated lambdas, choose Tools | Templates.
+        };
+    }
 }

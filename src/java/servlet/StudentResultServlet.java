@@ -5,12 +5,22 @@
  */
 package servlet;
 
+import controller.AnswerController;
+import controller.ChoiceController;
+import controller.QuestionController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Answer;
+import model.Choice;
+import model.KamuuUser;
+import model.Question;
 
 /**
  *
@@ -30,18 +40,30 @@ public class StudentResultServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet StudentResultServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet StudentResultServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        int quizId = Integer.parseInt(request.getParameter("quizid"));
+        int uscore = 0;
+        HttpSession session = request.getSession();
+        KamuuUser ku = (KamuuUser)session.getAttribute("user");
+        AnswerController ac = new AnswerController();
+        QuestionController qc = new QuestionController();
+        ChoiceController cc = new ChoiceController();
+        ArrayList<Answer> aary = ac.findByUserNQuiz(ku, quizId);
+        ArrayList<Question> qary = qc.findByQuizId(quizId);
+        ArrayList<Choice> cary = new ArrayList<>();
+        HashMap<Question,ArrayList<Choice>> hm = new HashMap();
+        for(Answer a : aary){
+            cary.add(cc.findById(a.getChoiceId()));
+            if(a.isIsRight()){
+                uscore++;
+            }
         }
+        for(Question q : qary){
+            hm.put(q, cc.findByQuestionId(q.getQuestionId()));
+        }
+        request.setAttribute("quiz", hm);
+        request.setAttribute("score", uscore);
+        request.setAttribute("uans", cary);
+        getServletContext().getRequestDispatcher("/WEB-INF/view/StudentResult.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

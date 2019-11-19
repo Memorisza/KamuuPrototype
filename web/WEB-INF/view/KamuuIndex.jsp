@@ -11,20 +11,16 @@
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Kamuu!"/>
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
-        <div class="jumbotron">
-            <center><h1 class="display-4">
-                    <c:if test="${message == null}">Kamuu!</c:if>${message}
-                </h1></center>
-        </div>
+        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <div class="row">
             <div class="col-lg-2">
+
             </div>
             <div class="col-lg-4">
-                <h2>Welcome ${user.getFullname()}</h2>
+                <h2>Completed Quizzes</h2>
             </div>
         </div>
-        <hr>
-        <h2>Completed Quizzes</h2>
+        <br>
         <c:forEach items='${donequizes}' var='uquiz' varStatus="vs">
             <nav aria-label="breadcrumb">
                 <div class="row">
@@ -41,13 +37,21 @@
                         
                     </div>
                     <div class="col-lg-2">
-                        <button type="button" class="btn btn-link" onclick="location.href = 'Quiz?quizid=${uquiz.getQuizId()}'">Do the Quiz!</button>
+                        <button type="button" class="btn btn-link" onclick="location.href = 'StudentResult?quizid=${uquiz.getQuizId()}'">Check Results</button>
                     </div>
                 </div>
             </nav>
         </c:forEach>
         <hr>
-        <h2>Available Quizzes</h2>
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-4">
+                <h2>Available Quizzes</h2>
+            </div>
+        </div>
+        <br>
         <c:forEach items='${quizes}' var='quiz' varStatus="vs">
             <nav aria-label="breadcrumb">
                 <div class="row">
