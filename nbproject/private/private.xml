@@ -7,6 +7,9 @@
             <file>file:/D:/Project/KamuuPrototype/src/java/controller/QuizController.java</file>
             <file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/Quiz.jsp</file>
             <file>file:/D:/Project/KamuuPrototype/src/java/servlet/QuizServlet.java</file>
+			<file>file:/D:/Project/KamuuPrototype/src/java/servlet/QuizResultServlet.java</file>
+			<file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/QuizResult.jsp</file>
+			<file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/KamuuIndex.jsp</file>
         </group>
     </open-files>
 </project-private>

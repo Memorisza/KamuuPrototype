@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.Answer;
 import model.KamuuUser;
 import model.Quiz;
@@ -26,6 +27,27 @@ public class AnswerController {
     private final String FIND_LASTTRANSID = "SELECT MAX(TRANS_ID) FROM USER_ANSWER";
     private final String FIND_QUIZBYUSER = "SELECT DISTINCT QUIZ_ID FROM USER_ANSWER WHERE USER_ID = ?"; 
     private final String FIND_BY_USERNQUIZ = "SELECT * FROM USER_ANSWER WHERE USER_ID = ? AND QUIZ_ID = ?";
+    private final String SCORE_BY_QUIZID = "SELECT USER_ID,COUNT(IS_RIGHT) AS SCORE FROM USER_ANSWER WHERE QUIZ_ID = ? AND IS_RIGHT = '1' GROUP BY USER_ID";
+    
+    public HashMap<KamuuUser,Integer> scoreByQuizId(int id){
+        HashMap<KamuuUser,Integer> hm = new HashMap<>();
+        UserController uc = new UserController();
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(SCORE_BY_QUIZID);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                hm.put(uc.findById(rs.getInt("USER_ID")), rs.getInt("SCORE"));
+            }
+            conn.close();
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return hm;
+    }
+    
     
      public int findLastTransID(){
         int i = -1;
