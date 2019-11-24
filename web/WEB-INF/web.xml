@@ -44,6 +44,34 @@
         <servlet-name>QuizResultServlet</servlet-name>
         <servlet-class>servlet.QuizResultServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddQuizServlet</servlet-name>
+        <servlet-class>servlet.AddQuizServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditQuizServlet</servlet-name>
+        <servlet-class>servlet.EditQuizServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteQuizServlet</servlet-name>
+        <servlet-class>servlet.DeleteQuizServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddQuestionServlet</servlet-name>
+        <servlet-class>servlet.AddQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddChoiceServlet</servlet-name>
+        <servlet-class>servlet.AddChoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <servlet-class>servlet.EditQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditChoiceServlet</servlet-name>
+        <servlet-class>servlet.EditChoiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -71,6 +99,34 @@
     <servlet-mapping>
         <servlet-name>QuizResultServlet</servlet-name>
         <url-pattern>/QuizResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuizServlet</servlet-name>
+        <url-pattern>/AddQuiz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuizServlet</servlet-name>
+        <url-pattern>/EditQuiz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuizServlet</servlet-name>
+        <url-pattern>/DeleteQuiz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuestionServlet</servlet-name>
+        <url-pattern>/AddQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddChoiceServlet</servlet-name>
+        <url-pattern>/AddChoice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <url-pattern>/EditQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditChoiceServlet</servlet-name>
+        <url-pattern>/EditChoice</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

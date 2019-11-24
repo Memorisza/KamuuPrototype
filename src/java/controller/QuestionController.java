@@ -20,7 +20,58 @@ import model.Question;
 public class QuestionController {
     private final String FIND_BY_ID = "SELECT * FROM QUIZ_QUESTIONS WHERE QUESTION_ID = ?";
     private final String FIND_BY_TITLE = "SELECT * FROM QUIZ_QUESTIONS WHERE QUESTION_TITLE LIKE '?%'";
-    private final String FIND_BY_QUIZID = "SELECT * FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ?";
+    private final String FIND_BY_QUIZID = "SELECT * FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ? ORDER BY QUIZ_ID ASC";
+    private final String ADD_QUESTION = "INSERT INTO QUIZ_QUESTIONS (QUESTION_ID, QUESTION_TITLE, QUIZ_ID) VALUES (?,?,?)";
+    private final String FIND_LASTQUESTION_ID = "SELECT MAX(QUESTION_ID) AS MAX_QUESTION_ID FROM QUIZ_QUESTIONS";
+    private final String UPDATE_QUESTION = "UPDATE QUIZ_QUESTIONS SET QUESTION_TITLE = ? WHERE QUESTION_ID = ?";
+    
+    public boolean updateQuestion(Question q){
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(UPDATE_QUESTION);
+            pstm.setString(1, q.getQuestionTitle());
+            pstm.setInt(2, q.getQuestionId());
+            int rs = pstm.executeUpdate();
+            conn.close();
+            return true;
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public int findLastQuestionId(){
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(FIND_LASTQUESTION_ID);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("MAX_QUESTION_ID");
+            }
+            conn.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public boolean insertQuestionToDB(Question q){
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(ADD_QUESTION);
+            pstm.setInt(1, findLastQuestionId()+1);
+            pstm.setString(2, q.getQuestionTitle());
+            pstm.setInt(3, q.getQuizId());
+            int rs = pstm.executeUpdate();
+            conn.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return true;
+    }
     
     public Question findById(int id){
         Question q = null;

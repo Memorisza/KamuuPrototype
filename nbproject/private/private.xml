@@ -10,6 +10,7 @@
 			<file>file:/D:/Project/KamuuPrototype/src/java/servlet/QuizResultServlet.java</file>
 			<file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/QuizResult.jsp</file>
 			<file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/KamuuIndex.jsp</file>
+			<file>file:/D:/Project/KamuuPrototype/src/java/servlet/DeleteQuizServlet.java</file>
         </group>
     </open-files>
 </project-private>

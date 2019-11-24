@@ -10,6 +10,11 @@
 <html>
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Kamuu!"/>
     <body>
+        <script>
+            function delConfirm(){
+                return window.confirm('Are you sure to delete the quiz?');
+            }
+        </script>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <c:if test="${user.getRole().equals('Student')}">
@@ -97,15 +102,36 @@
                     <div class="col-lg-4">
                         ${tquiz.getQuizName()}
                     </div>
-                    <div class="col-lg-2">
-                        
+                    <div class="col-lg-1">
+                        <c:if test="${!tquiz.isIsActive()}">
+                            <button type="button" class="btn btn-link" onclick="location.href = 'EditQuiz?quizid=${tquiz.getQuizId()}'">Edit Quiz</button>
+                        </c:if>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <button type="button" class="btn btn-link" onclick="location.href = 'QuizResult?quizid=${tquiz.getQuizId()}'">Check Results</button>
+                    </div>
+                    <div class="col-lg-1">
+                        <c:if test="${!tquiz.isIsActive()}">
+                        <button type="button" class="btn btn-link" onclick="if(delConfirm()) location.href = 'DeleteQuiz?quizid=${tquiz.getQuizId()}';">Delete Quiz</button>
+                        </c:if>
                     </div>
                 </div>
             </nav>
         </c:forEach>
+        <hr>
+        <div class="row">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-4">
+                    
+                </div>
+                <div class="col-lg-3">
+                        
+                </div>
+                <div class="col-lg-2">
+                    &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="location.href = 'AddQuiz'">Add Quiz!</button>
+                </div>
+            </div>
         </c:if>
     </body>
 </html>

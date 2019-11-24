@@ -12,7 +12,7 @@
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message= Quiz Result"/>
-    <c:if test="${flag == true}">
+    <c:if test="${noScore == true}">
         <div class="row">
             <div class="col-lg-2">
                 
@@ -30,7 +30,7 @@
                 </div>
             </div>
     </c:if>
-    <c:if test="${scores == false}">
+    <c:if test="${noScore == false}">
         <div class="row">
             <div class="col-lg-2">
                 
@@ -78,7 +78,6 @@
                     <h4>Average Score: ${mean}</h4> 
                     <h4>Standard Deviation: ${sd}</h4>
                 </div>
-                
             </div>
                 <br>
             <div class="row">

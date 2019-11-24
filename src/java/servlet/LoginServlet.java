@@ -6,6 +6,7 @@
 package servlet;
 
 import controller.AnswerController;
+import controller.QuestionController;
 import controller.QuizController;
 import controller.UserController;
 import java.io.IOException;
@@ -96,6 +97,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        session.removeAttribute("newquiz");
         if(session == null){
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
@@ -105,6 +107,7 @@ public class LoginServlet extends HttpServlet {
         }
         QuizController qc = new QuizController();
         AnswerController ac = new AnswerController();
+        QuestionController qqc = new QuestionController();
         if(ku.getRole().equals("Student")){
             ArrayList<Quiz> uary = new ArrayList<>();
             ArrayList<Integer> iary = ac.findQuizByUser(ku);

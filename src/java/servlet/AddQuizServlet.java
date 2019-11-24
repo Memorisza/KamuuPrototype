@@ -5,12 +5,22 @@
  */
 package servlet;
 
+import controller.ChoiceController;
+import controller.QuestionController;
+import controller.QuizController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Choice;
+import model.KamuuUser;
+import model.Question;
+import model.Quiz;
 
 /**
  *
@@ -30,7 +40,26 @@ public class AddQuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String qName = request.getParameter("quizN");
+        boolean isAct = request.getParameter("quizAct") != null;
+        if(qName.isEmpty()){
+            request.setAttribute("message", "Incorrect format");
+            getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+        }
+        HttpSession session = request.getSession(false);
+        KamuuUser ku = (KamuuUser)session.getAttribute("user");
+        QuizController qc = new QuizController();
+        if(qc.findByQname(qName) == null) {
+            Quiz q = new Quiz(qc.findLastQuizId()+1, qName, isAct, ku.getId());
+            if(qc.addNewQuiz(q)){
+                session.setAttribute("newquiz", q);
+                session.setAttribute("rAdd", false);
+                request.setAttribute("message", "Quiz Saved.");
+                getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+            }
+        }
+        request.setAttribute("message", "Quiz Name has already used.");
+        getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);                 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,6 +74,26 @@ public class AddQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        KamuuUser ku = (KamuuUser) session.getAttribute("user");
+        Quiz q = (Quiz) session.getAttribute("newquiz");
+        if(q == null){
+            Quiz qq = new Quiz(0,"",false,ku.getId());
+            session.setAttribute("newquiz", qq);
+            session.setAttribute("rAdd", true);
+            getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+        }
+        QuestionController qc = new QuestionController();
+        ChoiceController cc = new ChoiceController();
+        ArrayList<Question> qary = qc.findByQuizId(q.getQuizId());
+        if(qary.isEmpty()){
+            getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+        }
+        HashMap<Question,ArrayList<Choice>> hm = new HashMap<>();
+        for(Question ques : qary){
+            hm.put(ques, cc.findByQuestionId(ques.getQuestionId()));
+        }
+        request.setAttribute("quizes", hm);
         getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
     }
 
