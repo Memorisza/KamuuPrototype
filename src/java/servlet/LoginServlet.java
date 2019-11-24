@@ -65,21 +65,21 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", ku);
         QuizController qc = new QuizController();
         AnswerController ac = new AnswerController();
-        ArrayList<Quiz> uary = new ArrayList<>();
-        ArrayList<Integer> iary = ac.findQuizByUser(ku);
-        for(int i : iary){
-            uary.add(qc.findById(i));
-        }
-        ArrayList<Quiz> ary = qc.findActiveQuiz();
-        for(int i = 0 ; i < uary.size(); i++){
-            Comparator<Quiz> c = quizComparator();
-            if(c.compare(uary.get(i), ary.get(i)) == 0){
-                ary.remove(i);
+        if(ku.getRole().equals("Student")){
+            ArrayList<Quiz> uary = new ArrayList<>();
+            ArrayList<Integer> iary = ac.findQuizByUser(ku);
+            for(int i : iary){
+                uary.add(qc.findById(i));
             }
+            ArrayList<Quiz> ary = qc.findRemainQuizByUser(ku);
+            request.setAttribute("donequizes", uary);
+            request.setAttribute("quizes", ary);
         }
-        ary.trimToSize();
-        request.setAttribute("donequizes", uary);
-        request.setAttribute("quizes", ary);
+        if(ku.getRole().equals("Teacher")){
+            ArrayList<Quiz> tary = new ArrayList<>();
+            tary = qc.findByTeacherId(ku.getId());
+            request.setAttribute("tquizes", tary);
+        }        
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
     }
 
@@ -105,21 +105,21 @@ public class LoginServlet extends HttpServlet {
         }
         QuizController qc = new QuizController();
         AnswerController ac = new AnswerController();
-        ArrayList<Quiz> uary = new ArrayList<>();
-        ArrayList<Integer> iary = ac.findQuizByUser(ku);
-        for(int i : iary){
-            uary.add(qc.findById(i));
-        }
-        ArrayList<Quiz> ary = qc.findActiveQuiz();
-        for(int i = 0 ; i < uary.size(); i++){
-            Comparator<Quiz> c = quizComparator();
-            if(c.compare(uary.get(i), ary.get(i)) == 0){
-                ary.remove(i);
+        if(ku.getRole().equals("Student")){
+            ArrayList<Quiz> uary = new ArrayList<>();
+            ArrayList<Integer> iary = ac.findQuizByUser(ku);
+            for(int i : iary){
+                uary.add(qc.findById(i));
             }
+            ArrayList<Quiz> ary = qc.findRemainQuizByUser(ku);
+            request.setAttribute("donequizes", uary);
+            request.setAttribute("quizes", ary);
         }
-        ary.trimToSize();
-        request.setAttribute("donequizes", uary);
-        request.setAttribute("quizes", ary);
+        if(ku.getRole().equals("Teacher")){
+            ArrayList<Quiz> tary = new ArrayList<>();
+            tary = qc.findByTeacherId(ku.getId());
+            request.setAttribute("tquizes", tary);
+        }  
         getServletContext().getRequestDispatcher("/WEB-INF/view/KamuuIndex.jsp").forward(request, response);
     }
 
@@ -147,9 +147,4 @@ public class LoginServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Comparator<Quiz> quizComparator(){
-        return (o1, o2) -> {
-            return o1.getQuizId()-o2.getQuizId(); //To change body of generated lambdas, choose Tools | Templates.
-        };
-    }
 }

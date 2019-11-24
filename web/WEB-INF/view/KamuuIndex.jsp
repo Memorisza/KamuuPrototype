@@ -12,6 +12,7 @@
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
+        <c:if test="${user.getRole().equals('Student')}">
         <div class="row">
             <div class="col-lg-2">
 
@@ -73,6 +74,38 @@
                 </div>
             </nav>
         </c:forEach>
-        </table>
+        </c:if>
+        <c:if test="${user.getRole().equals('Teacher')}">
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-4">
+                <h2>Your Quizzes</h2>
+            </div>
+        </div>
+        <br>
+        <c:forEach items='${tquizes}' var='tquiz' varStatus="vs">
+            <nav aria-label="breadcrumb">
+                <div class="row">
+                    <div class="col-lg-2">
+                        
+                    </div>
+                    <div class="col-lg-1">
+                        ${vs.count}
+                    </div>
+                    <div class="col-lg-4">
+                        ${tquiz.getQuizName()}
+                    </div>
+                    <div class="col-lg-2">
+                        
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-link" onclick="location.href = 'QuizResult?quizid=${tquiz.getQuizId()}'">Check Results</button>
+                    </div>
+                </div>
+            </nav>
+        </c:forEach>
+        </c:if>
     </body>
 </html>

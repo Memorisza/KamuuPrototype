@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="/WEB-INF/view/Header.jsp?title=Kamuu!"/>
+    <jsp:include page="/WEB-INF/view/Header.jsp?title=Quiz"/>
     <body>
     <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>

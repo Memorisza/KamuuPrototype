@@ -40,6 +40,10 @@
         <servlet-name>StudentResultServlet</servlet-name>
         <servlet-class>servlet.StudentResultServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizResultServlet</servlet-name>
+        <servlet-class>servlet.QuizResultServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>StudentResultServlet</servlet-name>
         <url-pattern>/StudentResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizResultServlet</servlet-name>
+        <url-pattern>/QuizResult</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
