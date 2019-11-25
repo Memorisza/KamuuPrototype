@@ -6,26 +6,18 @@
 package servlet;
 
 import controller.ChoiceController;
-import controller.QuestionController;
-import controller.QuizController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Choice;
-import model.Question;
-import model.Quiz;
 
 /**
  *
  * @author Win 10
  */
-public class EditQuizServlet extends HttpServlet {
+public class DeleteChoiceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,16 +31,10 @@ public class EditQuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String qName = request.getParameter("quizN");
-        boolean isAct = request.getParameter("quizAct") != null;
-        int id = Integer.parseInt(request.getParameter("quizid"));
-        QuizController qc = new QuizController();
-        Quiz q = qc.findById(id);
-        q.setQuizName(qName);
-        q.setIsActive(isAct);
-        qc.updateQuiz(q);
-        request.setAttribute("message", "Quiz Saved.");
-        response.sendRedirect("/KamuuPrototype/AddQuiz");
+        int id = Integer.parseInt(request.getParameter("choiceid"));
+        ChoiceController cc = new ChoiceController();
+        cc.removeChoice(id);
+        response.sendRedirect("/KamuuPrototype/EditQuiz");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,27 +49,7 @@ public class EditQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        int id = -1;
-        if(session.getAttribute("quizid") == null){
-            id = Integer.parseInt(request.getParameter("quizid"));
-        }
-        else{
-             id = (Integer)session.getAttribute("quizid");
-        }       
-        QuizController qc = new QuizController();
-        QuestionController quc = new QuestionController();
-        ChoiceController cc = new ChoiceController();
-        HashMap<Question,ArrayList<Choice>> hm = new HashMap();
-        ArrayList<Question> ary = quc.findByQuizId(id);
-        for(Question q : ary){
-            hm.put(q, cc.findByQuestionId(q.getQuestionId()));
-        }
-        session.setAttribute("quizid", id);
-        request.setAttribute("newquiz", qc.findById(id));
-        request.setAttribute("quizes", hm);
-        request.setAttribute("rAdd", false);
-        getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

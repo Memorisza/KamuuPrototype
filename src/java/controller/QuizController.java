@@ -33,6 +33,24 @@ public class QuizController {
     private final String REMOVE_CHOICE = "DELETE FROM QUESTION_CHOICES WHERE QUESTION_ID IN (SELECT QUESTION_ID FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ?)";
     private final String REMOVE_QUES = "DELETE FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ?";
     private final String REMOVE_QUIZ = "DELETE FROM QUIZ WHERE QUIZ_ID = ?";
+    private final String UPDATE_QUIZ = "UPDATE QUIZ SET QUIZ_NAME = ?, IS_ACTIVE = ? WHERE QUIZ_ID = ?";
+    
+    public boolean updateQuiz(Quiz q){
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(UPDATE_QUIZ);
+            pstm.setString(1, q.getQuizName());
+            pstm.setBoolean(2, q.isIsActive());
+            pstm.setInt(3, q.getQuizId());
+            int rs = pstm.executeUpdate();
+            conn.close();
+            return true;
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
     
     public boolean removeQuizById(int id){
         Connection conn = DBConnection.getConnection();

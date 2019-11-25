@@ -97,7 +97,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        session.removeAttribute("newquiz");
         if(session == null){
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
@@ -105,6 +104,7 @@ public class LoginServlet extends HttpServlet {
         if(ku == null){
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
+        session.removeAttribute("newquiz");
         QuizController qc = new QuizController();
         AnswerController ac = new AnswerController();
         QuestionController qqc = new QuestionController();

@@ -5,20 +5,19 @@
  */
 package servlet;
 
-import controller.QuizController;
+import controller.QuestionController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Quiz;
 
 /**
  *
  * @author Win 10
  */
-public class PreQuizServlet extends HttpServlet {
+public class DeleteQuestionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,11 +31,10 @@ public class PreQuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int quizId = Integer.parseInt(request.getParameter("quizid"));
-        QuizController qc = new QuizController();
-        Quiz q = qc.findById(quizId);
-        request.setAttribute("quiz", q);
-        getServletContext().getRequestDispatcher("/WEB-INF/view/PreQuiz.jsp").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("quesid"));
+        QuestionController qc = new QuestionController();
+        qc.removeQuestion(id);
+        response.sendRedirect("/KamuuPrototype/EditQuiz");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

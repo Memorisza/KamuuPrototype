@@ -20,10 +20,30 @@ import model.Question;
 public class QuestionController {
     private final String FIND_BY_ID = "SELECT * FROM QUIZ_QUESTIONS WHERE QUESTION_ID = ?";
     private final String FIND_BY_TITLE = "SELECT * FROM QUIZ_QUESTIONS WHERE QUESTION_TITLE LIKE '?%'";
-    private final String FIND_BY_QUIZID = "SELECT * FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ? ORDER BY QUIZ_ID ASC";
+    private final String FIND_BY_QUIZID = "SELECT * FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ? ORDER BY QUESTION_ID ASC";
     private final String ADD_QUESTION = "INSERT INTO QUIZ_QUESTIONS (QUESTION_ID, QUESTION_TITLE, QUIZ_ID) VALUES (?,?,?)";
     private final String FIND_LASTQUESTION_ID = "SELECT MAX(QUESTION_ID) AS MAX_QUESTION_ID FROM QUIZ_QUESTIONS";
     private final String UPDATE_QUESTION = "UPDATE QUIZ_QUESTIONS SET QUESTION_TITLE = ? WHERE QUESTION_ID = ?";
+    private final String REMOVE_CHOICE = "DELETE FROM QUESTION_CHOICES WHERE QUESTION_ID = ?";
+    private final String REMOVE_QUESTION = "DELETE FROM QUIZ_QUESTIONS WHERE QUESTION_ID = ?";
+    
+    public boolean removeQuestion(int id){
+        Connection conn = DBConnection.getConnection();
+        try{
+            PreparedStatement pstm = conn.prepareStatement(REMOVE_CHOICE);
+            pstm.setInt(1, id);
+            pstm.executeUpdate();
+            pstm = conn.prepareStatement(REMOVE_QUESTION);
+            pstm.setInt(1, id);
+            pstm.executeUpdate();
+            conn.close();
+            return true;
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
     
     public boolean updateQuestion(Question q){
         Connection conn = DBConnection.getConnection();

@@ -72,6 +72,14 @@
         <servlet-name>EditChoiceServlet</servlet-name>
         <servlet-class>servlet.EditChoiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteChoiceServlet</servlet-name>
+        <servlet-class>servlet.DeleteChoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <servlet-class>servlet.DeleteQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>EditChoiceServlet</servlet-name>
         <url-pattern>/EditChoice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteChoiceServlet</servlet-name>
+        <url-pattern>/DeleteChoice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <url-pattern>/DeleteQuestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

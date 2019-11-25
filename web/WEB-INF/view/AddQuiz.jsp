@@ -12,11 +12,17 @@
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=Add New Quiz"/>
-        <form action="AddQuiz" method="post">
+        <c:if test="${rAdd == true}">
+              <form action="AddQuiz" method="post">
+        </c:if>
+        <c:if test="${rAdd == false}">
+              <form action="EditQuiz" method="post">
+        </c:if>
             <div class="row">
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-10">
+                    <input hidden="true" name="quizid" value="${newquiz.getQuizId()}"/>
                     <label>Quiz Name:<input type="text" class="form-control" name="quizN" value="${newquiz.getQuizName()}"/></label><br>                
                 </div>
             </div>
@@ -33,7 +39,7 @@
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-8">
-                    <input class="btn btn-primary" type="submit" value="Save"/>            
+                        <input class="btn btn-primary" type="submit" value="Save"/>   
                 </div>
             </div>
         </form>
@@ -45,7 +51,9 @@
                         <div class="col-lg-2">
                         </div>
                         <div class="col-lg-4">
-                            ${vs.count}. <input value="${quiz.key.getQuestionTitle()}" readonly=true/> <button type="button" class="btn btn-warning" onclick="location.href = 'EditQuestion?quesid=${quiz.key.getQuestionId()}';">Edit Question</button>
+                            ${vs.count}. <input value="${quiz.key.getQuestionTitle()}" readonly=true/> 
+                            <button type="button" class="btn btn-warning" onclick="location.href = 'EditQuestion?quesid=${quiz.key.getQuestionId()}';">Edit Question</button>
+                            <button type="button" class="btn btn-danger" onclick="location.href = 'DeleteQuestion?quesid=${quiz.key.getQuestionId()}';">Delete Question</button>
                         </div>
                         <div class="col-lg-4">
                                 
@@ -60,6 +68,7 @@
                         <div class="col-lg-4">
                             <input readonly="true" type="text" value="${choice.getChoiceAns()}"/>
                             <button type="button" class="btn btn-link" onclick="location.href = 'EditChoice?choiceid=${choice.getChoiceId()}';">Edit Choice</button>
+                            <button type="button" class="btn btn-delete" onclick="location.href = 'DeleteChoice?choiceid=${choice.getChoiceId()}';">Delete Choice</button>
                         </div>
                         <div class="col-lg-4">
                             
@@ -89,7 +98,7 @@
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-8">
-                    <h1><button type="button" class="btn btn-danger" onclick="location.href = 'AddQuestion?quizid=${newquiz.getQuizId()}';">Add New Question</button></h1>
+                    <h1><button type="button" class="btn btn-info" onclick="location.href = 'AddQuestion?quizid=${newquiz.getQuizId()}';">Add New Question</button></h1>
                     <br>
                 </div>
             </div>

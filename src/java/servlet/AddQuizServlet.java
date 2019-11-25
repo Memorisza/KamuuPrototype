@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,11 +43,11 @@ public class AddQuizServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String qName = request.getParameter("quizN");
         boolean isAct = request.getParameter("quizAct") != null;
+        HttpSession session = request.getSession(false);
         if(qName.isEmpty()){
             request.setAttribute("message", "Incorrect format");
             getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
         }
-        HttpSession session = request.getSession(false);
         KamuuUser ku = (KamuuUser)session.getAttribute("user");
         QuizController qc = new QuizController();
         if(qc.findByQname(qName) == null) {
@@ -90,9 +91,12 @@ public class AddQuizServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
         }
         HashMap<Question,ArrayList<Choice>> hm = new HashMap<>();
-        for(Question ques : qary){
-            hm.put(ques, cc.findByQuestionId(ques.getQuestionId()));
-        }
+        qary.forEach((n) -> hm.put(n, cc.findByQuestionId(n.getQuestionId())));
+//        Iterator<Question> i = qary.iterator();
+//        while(i.hasNext()){
+//            Question qn = i.next();
+//            hm.put(qn, cc.findByQuestionId(qn.getQuestionId()));
+//        }
         request.setAttribute("quizes", hm);
         getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
     }
