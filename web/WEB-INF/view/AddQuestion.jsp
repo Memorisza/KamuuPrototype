@@ -11,7 +11,7 @@
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Add Question"/>
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
-        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=Add Question"/>
+        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <form action="AddQuestion" method="post">
             <div class="row">
                 <div class="col-lg-2">

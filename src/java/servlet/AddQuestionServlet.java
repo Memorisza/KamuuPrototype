@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Question;
 
 /**
@@ -53,7 +54,9 @@ public class AddQuestionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int quizid = Integer.parseInt(request.getParameter("quizid"));
-        request.setAttribute("quizid", quizid);
+        HttpSession session = request.getSession(false);
+        session.setAttribute("quizid", quizid);
+        request.setAttribute("message", "Add New Question");
         getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuestion.jsp").forward(request, response);
     }
 

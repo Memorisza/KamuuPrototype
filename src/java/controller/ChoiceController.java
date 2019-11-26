@@ -24,7 +24,7 @@ public class ChoiceController {
     private final String FIND_LASTCHOICE_ID = "SELECT MAX(CHOICE_ID) AS MAX_CHOICE_ID FROM QUESTION_CHOICES";
     private final String ADD_CHOICE = "INSERT INTO QUESTION_CHOICES (CHOICE_ID, CHOICE_ANS, IS_RIGHT_CHOICE, QUESTION_ID) VALUES (?,?,?,?)";
     private final String UPDATE_CHOICE = "UPDATE QUESTION_CHOICES SET CHOICE_ANS = ?, IS_RIGHT_CHOICE = ? WHERE CHOICE_ID = ?";
-    private final String REMOVE_CHOICE = "DELETE FROM QUESTION_CHOICES WHERE WHERE CHOICE_ID = ?";
+    private final String REMOVE_CHOICE = "DELETE FROM QUESTION_CHOICES WHERE CHOICE_ID = ?";
     
     public boolean removeChoice(int id){
         Connection conn = DBConnection.getConnection();

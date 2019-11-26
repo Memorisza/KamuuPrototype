@@ -10,6 +10,14 @@
 <html>
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Add Quiz"/>
     <body>
+        <script>
+            function actQuiz(){
+                if(document.getElementById("actConfirm").checked === true){
+                    return window.confirm('Are you sure to delete the quiz?');
+                }
+                return true;
+            }
+        </script>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
         <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <c:if test="${rAdd == true}">
@@ -31,8 +39,8 @@
                 </div>
                 <div class="col-lg-8">
                     <c:if test="${rAdd == false}">
-                        <label>Set Active:<input type="checkbox" name="quizAct" value="${newquiz.isIsActive()}"/></label><br>
-                        </c:if>                    
+                        <label>Set Active:<input type="checkbox" name="quizAct" <c:if test="${newquiz.isIsActive()}">checked</c:if>/></label><br>
+                    </c:if>                    
                 </div>
             </div>
             <div class="row">
@@ -107,7 +115,7 @@
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-8">
-                    <button type="button" class="btn btn-primary" onclick="location.href = 'Login';">Back</button>
+                    <button type="button" id="actConfirm" class="btn btn-primary" onclick="if(actQuiz()) location.href = 'Login';">Back</button>
                 </div>
             </div>
         </c:if>

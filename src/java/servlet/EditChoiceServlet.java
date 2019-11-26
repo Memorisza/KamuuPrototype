@@ -62,6 +62,7 @@ public class EditChoiceServlet extends HttpServlet {
         QuestionController qc = new QuestionController();
         Choice c = cc.findById(choiceid);
         int quizid = qc.findById(c.getQuestionId()).getQuizId();
+        request.setAttribute("message", "Edit Choice");
         request.setAttribute("choice", c);
         getServletContext().getRequestDispatcher("/WEB-INF/view/EditChoice.jsp").forward(request, response);
     }

@@ -58,7 +58,7 @@ public class StudentResultServlet extends HttpServlet {
             }
         }
         for(Question q : qary){
-            hm.put(q, cc.findByQuestionId(q.getQuestionId()));
+            hm.put(q, cc.isRightChoice(q.getQuestionId()));
         }
         request.setAttribute("quiz", hm);
         request.setAttribute("score", uscore);
