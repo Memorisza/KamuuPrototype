@@ -25,7 +25,7 @@
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-4">
-                    <label>Correct Choice?:<input type="checkbox" value="${choice.isIsRightChoice()}" name="isCorrect"/></label>
+                    <label>Correct Choice?:<input type="checkbox" checked="${choice.isIsRightChoice()}" name="isCorrect"/></label>
                 </div>
             </div>
             <div class="row">
@@ -37,7 +37,7 @@
                 <div class="col-lg-4">
                 </div>
                 <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" onclick="location.href = 'AddQuiz'">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href = 'EditQuiz?quizid=${quizid}'">Back</button>
                 </div>    
             </div>
         </form>

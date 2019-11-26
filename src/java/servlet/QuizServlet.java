@@ -50,7 +50,10 @@ public class QuizServlet extends HttpServlet {
         for(int i = 1;i<=hm.size();i++){
             String sc = "question_"+i;
             System.out.println(sc);
-            System.out.println(request.getParameter(sc));
+            if(request.getParameter(sc) == null){
+                request.setAttribute("message", "Answer are not completed.");
+                getServletContext().getRequestDispatcher("/WEB-INF/view/Quiz.jsp").forward(request, response);
+            }
             int ic = Integer.parseInt(request.getParameter(sc));
             iary.add(ic);
         }
@@ -62,6 +65,9 @@ public class QuizServlet extends HttpServlet {
                         AnswerController ac = new AnswerController();
                         Answer a = new Answer(0,ku.getId(), qc.findById(c.getQuestionId()).getQuizId(), c.getQuestionId() , c.getChoiceId(), c.isIsRightChoice());
                         ac.ADD_ANSWER(a);
+                    }
+                    else{
+                        getServletContext().getRequestDispatcher("/WEB-INF/view/Quiz.jsp").forward(request, response);
                     }
                 }
             }

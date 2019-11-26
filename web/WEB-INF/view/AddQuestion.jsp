@@ -35,7 +35,7 @@
                 <div class="col-lg-4">
                 </div>
                 <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" onclick="location.href = 'AddQuiz'">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href = 'EditQuiz?quizid=${quizid}'">Back</button>
                 </div>    
             </div>
         </form>

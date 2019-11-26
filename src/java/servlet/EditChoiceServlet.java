@@ -6,6 +6,7 @@
 package servlet;
 
 import controller.ChoiceController;
+import controller.QuestionController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Choice;
+import model.Question;
 
 /**
  *
@@ -57,7 +59,9 @@ public class EditChoiceServlet extends HttpServlet {
             throws ServletException, IOException {
         int choiceid = Integer.parseInt(request.getParameter("choiceid"));
         ChoiceController cc = new ChoiceController();
+        QuestionController qc = new QuestionController();
         Choice c = cc.findById(choiceid);
+        int quizid = qc.findById(c.getQuestionId()).getQuizId();
         request.setAttribute("choice", c);
         getServletContext().getRequestDispatcher("/WEB-INF/view/EditChoice.jsp").forward(request, response);
     }

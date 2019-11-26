@@ -11,7 +11,7 @@
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Add Quiz"/>
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
-        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=Add New Quiz"/>
+        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <c:if test="${rAdd == true}">
               <form action="AddQuiz" method="post">
         </c:if>
@@ -110,7 +110,6 @@
                     <button type="button" class="btn btn-primary" onclick="location.href = 'Login';">Back</button>
                 </div>
             </div>
-
         </c:if>
     </body>
 </html>

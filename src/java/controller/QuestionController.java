@@ -139,10 +139,11 @@ public class QuestionController {
                 ary.add(new Question(rs.getInt("QUESTION_ID"), rs.getString("QUESTION_TITLE"), rs.getInt("QUIZ_ID")));
             }
             conn.close();
+            return ary;
         }
         catch(SQLException ex){
             ex.printStackTrace();
         }
-        return ary;
+        return null;
     }
 }

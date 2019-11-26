@@ -34,7 +34,7 @@ public class QuizController {
     private final String REMOVE_QUES = "DELETE FROM QUIZ_QUESTIONS WHERE QUIZ_ID = ?";
     private final String REMOVE_QUIZ = "DELETE FROM QUIZ WHERE QUIZ_ID = ?";
     private final String UPDATE_QUIZ = "UPDATE QUIZ SET QUIZ_NAME = ?, IS_ACTIVE = ? WHERE QUIZ_ID = ?";
-    
+
     public boolean updateQuiz(Quiz q){
         Connection conn = DBConnection.getConnection();
         try{

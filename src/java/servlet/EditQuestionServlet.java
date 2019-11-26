@@ -57,6 +57,8 @@ public class EditQuestionServlet extends HttpServlet {
         int quesid = Integer.parseInt(request.getParameter("quesid"));
         QuestionController qc = new QuestionController();
         Question q = qc.findById(quesid);
+        int quizid = qc.findById(quesid).getQuizId();
+        request.setAttribute("quized", quizid);
         request.setAttribute("ques", q);
         getServletContext().getRequestDispatcher("/WEB-INF/view/EditQuestion.jsp").forward(request, response);
     }

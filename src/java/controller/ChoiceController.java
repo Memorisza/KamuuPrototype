@@ -120,11 +120,12 @@ public class ChoiceController {
                 ary.add(new Choice(rs.getInt("CHOICE_ID"), rs.getString("CHOICE_ANS"), rs.getBoolean("IS_RIGHT_CHOICE"), rs.getInt("QUESTION_ID")));
             }
             conn.close();
+            return ary;
         }
         catch(SQLException ex){
             ex.printStackTrace();
         }
-        return ary;
+        return null;
     }
     
     public ArrayList<Choice> findByQuestionId(int questionId){

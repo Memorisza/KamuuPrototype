@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,13 +43,31 @@ public class EditQuizServlet extends HttpServlet {
         String qName = request.getParameter("quizN");
         boolean isAct = request.getParameter("quizAct") != null;
         int id = Integer.parseInt(request.getParameter("quizid"));
+        boolean flag = true;
         QuizController qc = new QuizController();
-        Quiz q = qc.findById(id);
-        q.setQuizName(qName);
-        q.setIsActive(isAct);
-        qc.updateQuiz(q);
-        request.setAttribute("message", "Quiz Saved.");
-        response.sendRedirect("/KamuuPrototype/AddQuiz");
+        QuestionController quc = new QuestionController();
+        ChoiceController cc = new ChoiceController();
+        if (isAct) {
+            ArrayList<Question> qary = quc.findByQuizId(id);
+            System.out.println(quc.findByQuizId(id));
+            if (qary.isEmpty()) {
+                request.setAttribute("message", "The Quiz is incompleted.");
+            }
+            for (Question q : qary) {
+                if (cc.isRightChoice(q.getQuestionId()).isEmpty()) {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        if (flag == true) {
+            Quiz q = qc.findById(id);
+            q.setQuizName(qName);
+            q.setIsActive(isAct);
+            qc.updateQuiz(q);
+            request.setAttribute("message", "Quiz Saved.");
+        }
+        response.sendRedirect("/KamuuPrototype/EditQuiz");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,18 +84,17 @@ public class EditQuizServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         int id = -1;
-        if(session.getAttribute("quizid") == null){
+        if (session.getAttribute("quizid") == null) {
             id = Integer.parseInt(request.getParameter("quizid"));
+        } else {
+            id = (Integer) session.getAttribute("quizid");
         }
-        else{
-             id = (Integer)session.getAttribute("quizid");
-        }       
         QuizController qc = new QuizController();
         QuestionController quc = new QuestionController();
         ChoiceController cc = new ChoiceController();
-        HashMap<Question,ArrayList<Choice>> hm = new HashMap();
+        HashMap<Question, ArrayList<Choice>> hm = new HashMap();
         ArrayList<Question> ary = quc.findByQuizId(id);
-        for(Question q : ary){
+        for (Question q : ary) {
             hm.put(q, cc.findByQuestionId(q.getQuestionId()));
         }
         session.setAttribute("quizid", id);

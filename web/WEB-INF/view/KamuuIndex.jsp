@@ -111,9 +111,7 @@
                         <button type="button" class="btn btn-link" onclick="location.href = 'QuizResult?quizid=${tquiz.getQuizId()}'">Check Results</button>
                     </div>
                     <div class="col-lg-1">
-                        <c:if test="${!tquiz.isIsActive()}">
                         <button type="button" class="btn btn-link" onclick="if(delConfirm()) location.href = 'DeleteQuiz?quizid=${tquiz.getQuizId()}';">Delete Quiz</button>
-                        </c:if>
                     </div>
                 </div>
             </nav>

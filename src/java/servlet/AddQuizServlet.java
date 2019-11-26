@@ -56,11 +56,26 @@ public class AddQuizServlet extends HttpServlet {
                 session.setAttribute("newquiz", q);
                 session.setAttribute("rAdd", false);
                 request.setAttribute("message", "Quiz Saved.");
+                ChoiceController cc = new ChoiceController();
+                QuestionController quc = new QuestionController();
+                ArrayList<Question> qary = quc.findByQuizId(q.getQuizId());
+                if(qary.isEmpty()){
+                    getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+                }
+                HashMap<Question,ArrayList<Choice>> hm = new HashMap<>();
+                qary.forEach((n) -> hm.put(n, cc.findByQuestionId(n.getQuestionId())));
+        //        Iterator<Question> i = qary.iterator();
+        //        while(i.hasNext()){
+        //            Question qn = i.next();
+        //            hm.put(qn, cc.findByQuestionId(qn.getQuestionId()));
+        //        }
+                request.setAttribute("message", "Add New Quiz");
+                request.setAttribute("quizes", hm);
                 getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
             }
         }
         request.setAttribute("message", "Quiz Name has already used.");
-        getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);                 
+        getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

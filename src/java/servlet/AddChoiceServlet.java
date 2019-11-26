@@ -6,6 +6,7 @@
 package servlet;
 
 import controller.ChoiceController;
+import controller.QuestionController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,8 +37,11 @@ public class AddChoiceServlet extends HttpServlet {
         String Answer = request.getParameter("cAns");
         boolean isC = request.getParameter("isCorrect") != null;
         ChoiceController cc = new ChoiceController();
+        QuestionController qc = new QuestionController();
         Choice c = new Choice(cc.findLastChoice()+1, Answer, isC, quesId);
+        int quizid = qc.findById(quesId).getQuizId();
         cc.insertChoiceToDB(c);
+        
         response.sendRedirect("/KamuuPrototype/EditQuiz");
     }
 
