@@ -1,18 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
-        <filter-name>AuthenticationFilter</filter-name>
+        <filter-name>StudentFilter</filter-name>
+        <filter-class>filter.SAuthenticationFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>TeacherFilter</filter-name>
+        <filter-class>filter.TAuthenticationFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AuthFilter</filter-name>
         <filter-class>filter.AuthenticationFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>AuthenticationFilter</filter-name>
-        <servlet-name>LogoutServlet</servlet-name>
+        <filter-name>StudentFilter</filter-name>
+        <servlet-name>QuizServlet</servlet-name>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>AuthenticationFilter</filter-name>
+        <filter-name>StudentFilter</filter-name>
+        <servlet-name>StudentResultServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>DeleteQuestionServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>DeleteChoiceServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>EditChoiceServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>EditQuestionServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>AddChoiceServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>AddQuestionServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>DeleteQuizServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>EditQuizServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>AddQuizServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <servlet-name>QuizResultServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StudentFilter</filter-name>
+        <url-pattern>/Quiz.jsp</url-pattern>
+        <url-pattern>/StudentResult.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TeacherFilter</filter-name>
+        <url-pattern>/AddChoice.jsp</url-pattern>
+        <url-pattern>/AddQuestion.jsp</url-pattern>
+        <url-pattern>/AddQuiz.jsp</url-pattern>
+        <url-pattern>/EditChoice.jsp</url-pattern>
+        <url-pattern>/EditQuestion.jsp</url-pattern>
+        <url-pattern>/EditQuiz.jsp</url-pattern>
+        <url-pattern>/QuizResult.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
         <url-pattern>/KamuuIndex.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <servlet-name>LogoutServlet</servlet-name>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
