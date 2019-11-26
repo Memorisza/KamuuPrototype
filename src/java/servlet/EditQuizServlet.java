@@ -51,6 +51,7 @@ public class EditQuizServlet extends HttpServlet {
             ArrayList<Question> qary = quc.findByQuizId(id);
             System.out.println(quc.findByQuizId(id));
             if (qary.isEmpty()) {
+                flag = false;
                 request.setAttribute("message", "The Quiz is incompleted.");
             }
             for (Question q : qary) {
@@ -101,6 +102,7 @@ public class EditQuizServlet extends HttpServlet {
         request.setAttribute("newquiz", qc.findById(id));
         request.setAttribute("quizes", hm);
         request.setAttribute("rAdd", false);
+        request.setAttribute("message", "Quiz Management");
         getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
     }
 

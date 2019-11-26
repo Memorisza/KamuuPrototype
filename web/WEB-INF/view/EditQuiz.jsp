@@ -11,7 +11,7 @@
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Edit Quiz"/>
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
-        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=Edit Quiz"/>
+        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <form action="EditQuiz" method="post">
         <c:forEach items='${quizes}' var='quiz' varStatus="vs">
                 <nav aria-label="breadcrumb">
