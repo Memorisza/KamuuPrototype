@@ -105,6 +105,7 @@ public class LoginServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
         }
         session.removeAttribute("newquiz");
+        session.removeAttribute("quizid");
         QuizController qc = new QuizController();
         AnswerController ac = new AnswerController();
         QuestionController qqc = new QuestionController();

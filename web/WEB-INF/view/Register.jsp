@@ -14,7 +14,7 @@
         <h2>${message}</h2>
         <script>
             function validate(){
-                if(document.getElementById("pass").value !== document.getElementById("conpass")){
+                if(document.getElementById("pass").value !== document.getElementById("conpass").value){
                     alert('Password and Confirm password field not match');
                     document.getElementById("pass").value = "";
                     document.getElementById("conpass").value = "";
@@ -30,8 +30,8 @@
             <label>Password:<input class="form-control" type="password" id="pass" name="pass" required="yes"/></label><br>
             <label>Confirm Password:<input class="form-control" type="password" id="conpass" required="yes"/></label><br>
             <label>
-              <input class="form-control" type="radio" name="role" value="student"> Student<br>
-              <input class="form-control" type="radio" name="role" value="teacher"> Teacher<br>
+              <input class="form-control" type="radio" name="role" value="Student"> Student<br>
+              <input class="form-control" type="radio" name="role" value="Teacher"> Teacher<br>
             </label>
             <br>
             <input class="btn btn-success" type="submit" value="Register"/>

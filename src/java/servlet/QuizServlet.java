@@ -66,9 +66,6 @@ public class QuizServlet extends HttpServlet {
                         Answer a = new Answer(0,ku.getId(), qc.findById(c.getQuestionId()).getQuizId(), c.getQuestionId() , c.getChoiceId(), c.isIsRightChoice());
                         ac.ADD_ANSWER(a);
                     }
-                    else{
-                        getServletContext().getRequestDispatcher("/WEB-INF/view/Quiz.jsp").forward(request, response);
-                    }
                 }
             }
         }

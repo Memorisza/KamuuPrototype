@@ -41,7 +41,7 @@ public class AddChoiceServlet extends HttpServlet {
         Choice c = new Choice(cc.findLastChoice()+1, Answer, isC, quesId);
         int quizid = qc.findById(quesId).getQuizId();
         cc.insertChoiceToDB(c);
-        
+        request.setAttribute("message", "Add New Choice");
         response.sendRedirect("/KamuuPrototype/EditQuiz");
     }
 

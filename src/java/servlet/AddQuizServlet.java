@@ -47,6 +47,7 @@ public class AddQuizServlet extends HttpServlet {
         if(qName.isEmpty()){
             request.setAttribute("message", "Incorrect format");
             getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+            return ;
         }
         KamuuUser ku = (KamuuUser)session.getAttribute("user");
         QuizController qc = new QuizController();
@@ -71,7 +72,8 @@ public class AddQuizServlet extends HttpServlet {
         //        }
                 request.setAttribute("message", "Add New Quiz");
                 request.setAttribute("quizes", hm);
-                getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
+                session.removeAttribute("newquiz");
+                response.sendRedirect("/KamuuPrototype/EditQuiz");
             }
         }
         request.setAttribute("message", "Quiz Name has already used.");
@@ -92,16 +94,15 @@ public class AddQuizServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         KamuuUser ku = (KamuuUser) session.getAttribute("user");
-        Quiz q = (Quiz) session.getAttribute("newquiz");
-        if(q == null){
-            Quiz qq = new Quiz(0,"",false,ku.getId());
-            session.setAttribute("newquiz", qq);
-            session.setAttribute("rAdd", true);
-            getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
-        }
+        QuizController quc = new QuizController();
+        Quiz qq = new Quiz(quc.findLastQuizId()+1,"",false,ku.getId());
+        request.setAttribute("newquiz", qq);
+        session.setAttribute("rAdd", true);
+        session.setAttribute("quizid", qq.getQuizId());
+        getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
         QuestionController qc = new QuestionController();
         ChoiceController cc = new ChoiceController();
-        ArrayList<Question> qary = qc.findByQuizId(q.getQuizId());
+        ArrayList<Question> qary = qc.findByQuizId(qq.getQuizId());
         if(qary.isEmpty()){
             getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
         }
@@ -112,6 +113,7 @@ public class AddQuizServlet extends HttpServlet {
 //            Question qn = i.next();
 //            hm.put(qn, cc.findByQuestionId(qn.getQuestionId()));
 //        }
+        request.setAttribute("message", "Quiz Management");
         request.setAttribute("quizes", hm);
         getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
     }

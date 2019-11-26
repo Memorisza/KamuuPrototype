@@ -48,13 +48,14 @@
                             </div>
                         </c:if>
                     </c:forEach>
-                        <c:forEach items="${quiz.value}" var="choice">
+                        <div class="col-lg-2"><h5>
+                        <c:forEach items="${quiz.value}" var="choice" varStatus="ccount">
                             <c:if test="${choice.isIsRightChoice()}">
-                                <div class="col-lg-2">
-                                    <h5>${choice.getChoiceAns()}</h5>
-                                </div>
+                                ${choice.getChoiceAns()}
                             </c:if>
                         </c:forEach>
+                        </h5>
+                        </div>
                 </div>
         </c:forEach>
             <hr>

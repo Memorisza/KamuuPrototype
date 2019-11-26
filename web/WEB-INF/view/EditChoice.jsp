@@ -11,7 +11,7 @@
     <jsp:include page="/WEB-INF/view/Header.jsp?title=Add Question"/>
     <body>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
-        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=Add Question"/>
+        <jsp:include page="/WEB-INF/view/Jumbotron.jsp?message=${message}"/>
         <form action="EditChoice" method="post">
             <div class="row">
                 <div class="col-lg-2">
@@ -25,7 +25,7 @@
                 <div class="col-lg-2">
                 </div>
                 <div class="col-lg-4">
-                    <label>Correct Choice?:<input type="checkbox" checked="${choice.isIsRightChoice()}" name="isCorrect"/></label>
+                    <label>Correct Choice?:<input type="checkbox" <c:if test="${choice.isIsRightChoice()}">checked</c:if> name="isCorrect"/></label>
                 </div>
             </div>
             <div class="row">
