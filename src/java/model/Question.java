@@ -9,7 +9,7 @@ package model;
  *
  * @author Win 10
  */
-public class Question {
+public class Question implements Comparable<Question> {
     private int questionId;
     private String questionTitle;
     private int quizId;
@@ -48,6 +48,10 @@ public class Question {
     public String toString() {
         return "Question{" + "questionId=" + questionId + ", questionTitle=" + questionTitle + ", quizId=" + quizId + '}';
     }
-    
+
+    @Override
+    public int compareTo(Question o) {
+        return this.getQuestionId()-o.getQuestionId();
+    }
     
 }

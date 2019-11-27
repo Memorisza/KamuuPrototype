@@ -12,10 +12,7 @@
     <body>
         <script>
             function actQuiz(){
-                if(document.getElementById("actConfirm").checked === true){
-                    return window.confirm('Are you sure to delete the quiz?');
-                }
-                return true;
+                return window.confirm('Are you sure to go back?');
             }
         </script>
         <jsp:include page="/WEB-INF/view/Navbar.jsp"/>
@@ -58,13 +55,10 @@
                     <div class="row">
                         <div class="col-lg-2">
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-8">
                             ${vs.count}. <input value="${quiz.key.getQuestionTitle()}" readonly=true/> 
                             <button type="button" class="btn btn-warning" onclick="location.href = 'EditQuestion?quesid=${quiz.key.getQuestionId()}';">Edit Question</button>
                             <button type="button" class="btn btn-danger" onclick="location.href = 'DeleteQuestion?quesid=${quiz.key.getQuestionId()}';">Delete Question</button>
-                        </div>
-                        <div class="col-lg-4">
-                                
                         </div>
                     </div>
                 </nav>
@@ -84,12 +78,12 @@
                     </div>
                 </c:forEach>
                     <div class="row">
-                    <div class="col-lg-2">
+                        <div class="col-lg-2">
+                        </div>
+                        <div class="col-lg-4">
+                            <h1><button type="button" class="btn btn-success" onclick="location.href = 'AddChoice?quesid=${quiz.key.getQuestionId()}'">Add Choice</button></h1>
+                        </div>
                     </div>
-                    <div class="col-lg-4">
-                        <h1><button type="button" class="btn btn-success" onclick="location.href = 'AddChoice?quesid=${quiz.key.getQuestionId()}'">Add Choice</button></h1>
-                    </div>
-                </div>
                     <div class="row">
                         <div class="col-lg-2">
                             

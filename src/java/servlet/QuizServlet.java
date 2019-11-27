@@ -94,7 +94,6 @@ public class QuizServlet extends HttpServlet {
         for(Question q : ary){
             hm.put(q, cc.findByQuestionId(q.getQuestionId()));
         }        
-        System.out.println(hm.size());
         HttpSession session = request.getSession(false);
         session.setAttribute("quizes", hm);
         getServletContext().getRequestDispatcher("/WEB-INF/view/Quiz.jsp").forward(request, response);

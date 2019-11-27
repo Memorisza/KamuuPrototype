@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -95,12 +96,15 @@ public class EditQuizServlet extends HttpServlet {
         ChoiceController cc = new ChoiceController();
         HashMap<Question, ArrayList<Choice>> hm = new HashMap();
         ArrayList<Question> ary = quc.findByQuizId(id);
+        
         for (Question q : ary) {
+            System.out.println(q);
             hm.put(q, cc.findByQuestionId(q.getQuestionId()));
         }
+        TreeMap<Question, ArrayList<Choice>> sorted = new TreeMap<>(hm);
         session.setAttribute("quizid", id);
         request.setAttribute("newquiz", qc.findById(id));
-        request.setAttribute("quizes", hm);
+        request.setAttribute("quizes", sorted);
         request.setAttribute("rAdd", false);
         request.setAttribute("message", "Quiz Management");
         getServletContext().getRequestDispatcher("/WEB-INF/view/AddQuiz.jsp").forward(request, response);
