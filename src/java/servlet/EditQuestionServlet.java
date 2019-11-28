@@ -39,7 +39,7 @@ public class EditQuestionServlet extends HttpServlet {
         Question q = qc.findById(quesid);
         q.setQuestionTitle(quesName);
         qc.updateQuestion(q);
-        response.sendRedirect("/KamuuPrototype/AddQuiz");
+        response.sendRedirect("/KamuuPrototype/EditQuiz");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

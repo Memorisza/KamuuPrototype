@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="/WEB-INF/view/Header.jsp?title=Login E Here"/>
+    <jsp:include page="/WEB-INF/view/Header.jsp?title=Login"/>
     <body>
         <%--<jsp:include page="/WEB-INF/view/Navbar.jsp"/>--%>
         <h1>Login</h1>

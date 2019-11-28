@@ -3,19 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/KamuuPrototype/src/java/controller/QuestionController.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/EditQuizServlet.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/model/Question.java</file>
-            <file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/Quiz.jsp</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/AddQuizServlet.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/controller/AnswerController.java</file>
+            <file>file:/D:/Project/KamuuPrototype/src/java/model/KamuuUser.java</file>
             <file>file:/D:/Project/KamuuPrototype/src/java/servlet/AddQuestionServlet.java</file>
-            <file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/AddQuiz.jsp</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/model/Answer.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/AddChoiceServlet.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/QuizServlet.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/filter/SAuthenticationFilter.java</file>
-            <file>file:/D:/Project/KamuuPrototype/src/java/filter/AuthenticationFilter.java</file>
+            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/LoginServlet.java</file>
+            <file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/KamuuIndex.jsp</file>
+            <file>file:/D:/Project/KamuuPrototype/web/WEB-INF/view/AddQuestion.jsp</file>
+            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/DeleteQuestionServlet.java</file>
+            <file>file:/D:/Project/KamuuPrototype/src/java/servlet/EditQuestionServlet.java</file>
         </group>
     </open-files>
 </project-private>
